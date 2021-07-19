@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CreatePost.cs" />
     <Compile Include="PostDetail.cs" />
+    <Compile Include="PostEdit.cs" />
     <Compile Include="PostListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -55,5 +55,28 @@ namespace Services
                 };
             }
         }
+        public bool UpdatePost(PostEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx
+                    .Posts
+                    .Single(q => q.Id == model.Id && q.AuthorId == _userId);
+                entity.Title = model.Title;
+                entity.Text = model.Content;
+
+                return ctx.SaveChanges() == 1;
+
+            }
+        }
+        public bool DeletePost(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Posts.Single(e => e.Id == id && e.AuthorId == _userId);
+                ctx.Posts.Remove(entity);
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }
