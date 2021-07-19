@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    class PostService
+    public class PostService
     {
         private readonly Guid _userId;
 
@@ -27,7 +27,7 @@ namespace Services
 
             }
         }
-        public IEnumerable<PostListItem> GetNotes()
+        public IEnumerable<PostListItem> GetPosts()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -38,6 +38,21 @@ namespace Services
                         q => 
                         new PostListItem { PostId = q.Id, Title = q.Title });
                 return query.ToArray();
+            }
+        }
+        public PostDetail GetPost(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx
+                    .Posts
+                    .Single(q => q.Id == id && q.AuthorId == _userId);
+                return new PostDetail()
+                {
+                    Id = entity.Id,
+                    Title = entity.Title,
+                    Content = entity.Text
+                };
             }
         }
     }
