@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Comments
+    public class CommentEdit
     {
+        public int CommentId  { get; set; }
+
+        public string Content { get; set; }
     }
 }
