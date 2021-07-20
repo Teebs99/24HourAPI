@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Models
         public string Title { get; set; }
         [Required]
         public string Text { get; set; }
-        // public virtual List<Comment> comments{get;set;}
+        public virtual List<Comment> Comments { get; set; } = new List<Comment>();
         [Required]
         public Guid AuthorId { get; set; }
     }

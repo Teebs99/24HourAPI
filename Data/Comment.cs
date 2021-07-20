@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,9 @@ namespace Data
         public DateTimeOffset CreatedUtc { get; set; }
 
         //public DateTimeOffset? ModifiedUtc { get; set; }
-
+        [Required]
+        [ForeignKey(nameof(Post))]
         public int PostId { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

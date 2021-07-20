@@ -24,7 +24,9 @@ namespace Services
             {
                 AuthorId = _userId,
                 Text = model.Content,
-                CreatedUtc = DateTimeOffset.Now
+                CreatedUtc = DateTimeOffset.Now,
+                PostId = model.PostId
+                
             };
             using (var ctx = new ApplicationDbContext())
             {
