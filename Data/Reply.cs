@@ -24,6 +24,9 @@ namespace Data
 
         //public DateTimeOffset? ModifiedUtc { get; set; }
 
-        public int PostId { get; set; }
+        // Foreign key for Comment
+        public int CommentId { get; set; }
+        public Comment Comment { get; set; }
+    
     }
 }
