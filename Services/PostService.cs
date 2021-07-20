@@ -51,7 +51,8 @@ namespace Services
                 {
                     Id = entity.Id,
                     Title = entity.Title,
-                    Content = entity.Text
+                    Content = entity.Text,
+                    Comments = entity.Comments
                 };
             }
         }

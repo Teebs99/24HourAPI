@@ -25,6 +25,8 @@ namespace _24HourAPI.Controllers
         {
             var service = CreatePostService();
             var posts = service.GetPosts();
+            if (posts == null)
+                return NotFound();
             return Ok(posts);
 
         }
@@ -33,6 +35,8 @@ namespace _24HourAPI.Controllers
         {
             var service = CreatePostService();
             var PostDetail = service.GetPost(id);
+            if (PostDetail == null)
+                return NotFound();
             return Ok(PostDetail);
         }
         [HttpPost]

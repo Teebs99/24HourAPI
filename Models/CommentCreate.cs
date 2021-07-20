@@ -13,5 +13,7 @@ namespace Models
         [MinLength(2, ErrorMessage ="Please enter a comment with at least 2 characters.")]
         [MaxLength(250, ErrorMessage ="Too many characters in this field.")]
         public string Content { get; set; }
+        [Required]
+        public int PostId { get; set; }
     }
 }

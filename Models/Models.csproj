@@ -81,7 +81,7 @@
     <Compile Include="PostDetail.cs" />
     <Compile Include="PostEdit.cs" />
     <Compile Include="PostListItem.cs" />
-        <Compile Include="CommentCreate.cs" />
+    <Compile Include="CommentCreate.cs" />
     <Compile Include="CommentDetail.cs" />
     <Compile Include="CommentEdit.cs" />
     <Compile Include="CommentListItem.cs" />
@@ -90,6 +90,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{F6C44475-3161-4A7D-9134-D2E1F49B5CD4}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
