@@ -9,92 +9,90 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class CommentService
+    public class ReplyService
     {
         private readonly Guid _userId;
 
-        public CommentService(Guid userId)
+        public ReplyService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CreateComment(CommentCreate model)
+        public bool CreateReply(ReplyCreate model)
         {
-            var entity = new Comment()
+            var entity = new Reply()
             {
                 AuthorId = _userId,
                 Text = model.Content,
                 CreatedUtc = DateTimeOffset.Now,
-                PostId = model.PostId,
-                Replies = model.Replies
-                
+                CommentId = model.CommentId
             };
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Comments.Add(entity);
+                ctx.Replys.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public IEnumerable<CommentListItem> GetComments()
+        public IEnumerable<ReplyListItem> GetReplys()
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                    .Comments
+                    .Replys
                     .Where(e => e.AuthorId == _userId)
-                    .Select(e => new CommentListItem
+                    .Select(e => new ReplyListItem
                     {
-                        CommentId = e.Id,
+                        ReplyId = e.Id,
                         Content = e.Text,
                         CreatedUtc = e.CreatedUtc
                     });
                 return query.ToArray();
             }
         }
-        public CommentDetail GetCommentById(int id)
+        public ReplyDetail GetReplyById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx
-                    .Comments
+                    .Replys
                     .Single(e => e.Id == id && e.AuthorId == _userId);
-                return new CommentDetail
+                return new ReplyDetail
                 {
-                    CommentId = entity.Id,
+                    ReplyId = entity.Id,
                     Content = entity.Text,
                     CreatedUtc = entity.CreatedUtc,
                     //ModifiedUtc = entity.ModifiedUtc
                 };
             }
         }
-        public bool UpdateComment(CommentEdit model)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity =
-                    ctx
-                    .Comments
-                    .Single(e => e.Id == model.CommentId && e.AuthorId == _userId);
+        //public bool UpdateReply(ReplyEdit model)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var entity =
+        //            ctx
+        //            .Replys
+        //            .Single(e => e.Id == model.ReplyId && e.AuthorId == _userId);
 
-                entity.Text = model.Content;
-                //entity.ModifiedUtc = DateTimeOffset.UtcNow;
+        //        entity.Text = model.Content;
+        //        //entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        public bool DeleteComment(int commentId)
+        //        return ctx.SaveChanges() == 1;
+        //    }
+        //}
+        public bool DeleteReply(int commentId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity = ctx
-                    .Comments
+                    .Replys
                     .Single(e => e.Id == commentId && e.AuthorId == _userId);
 
-                ctx.Comments.Remove(entity);
+                ctx.Replys.Remove(entity);
 
-                return ctx.SaveChanges() == 1; 
+                return ctx.SaveChanges() == 1;
             }
         }
 
