@@ -7,6 +7,7 @@ using Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Models;
 
 namespace _24HourAPI.Models
 {
@@ -34,30 +35,28 @@ namespace _24HourAPI.Models
             return new ApplicationDbContext();
         }
 
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder
-                .Conventions
-                .Remove<PluralizingTableNameConvention>();
-            modelBuilder
-                .Configurations
-                .Add(new IdentityUserLoginConfiguration())
-                .Add(new IdentityUserRoleConfiguration());
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Configurations.Add(new IdentityUserLoginConfiguration()).Add(new IdentityUserRoleConfiguration());
         }
-    }
-    public class IdentityUserLoginConfiguration : EntityTypeConfiguration<IdentityUserLogin>
-    {
-        public IdentityUserLoginConfiguration()
+
+        public class IdentityUserLoginConfiguration: EntityTypeConfiguration<IdentityUserLogin>
         {
-            HasKey(iul => iul.UserId);
+            public IdentityUserLoginConfiguration()
+            {
+                HasKey(IdentityUserLogin => IdentityUserLogin.UserId);
+            }
         }
-    }
-    public class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
-    {
-        public IdentityUserRoleConfiguration()
+        public class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
         {
-            HasKey(iur => iur.UserId);
+            public IdentityUserRoleConfiguration()
+            {
+                HasKey(iur => iur.UserId);
+            }
         }
     }
 }
