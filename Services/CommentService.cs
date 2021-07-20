@@ -62,7 +62,7 @@ namespace Services
                     CommentId = entity.Id,
                     Content = entity.Text,
                     CreatedUtc = entity.CreatedUtc,
-                    ModifiedUtc = entity.ModifiedUtc
+                    //ModifiedUtc = entity.ModifiedUtc
                 };
             }
         }
@@ -76,7 +76,7 @@ namespace Services
                     .Single(e => e.Id == model.CommentId && e.AuthorId == _userId);
 
                 entity.Text = model.Content;
-                entity.ModifiedUtc = DateTimeOffset.UtcNow;
+                //entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
                 return ctx.SaveChanges() == 1;
             }

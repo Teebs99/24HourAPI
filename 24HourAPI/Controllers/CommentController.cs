@@ -36,7 +36,7 @@ namespace _24HourAPI.Controllers
         public IHttpActionResult Post(CommentCreate comment)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
             var service = CreateCommentService();
 
             if (!service.CreateComment(comment))
